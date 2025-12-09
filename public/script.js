@@ -1,7 +1,8 @@
-const NEXT_PAGE_URL = "next-level.html";
+const NEXT_PAGE_URL = "/go"; // Weiterleitungs-Route, echte URL ist im Backend versteckt
 
 if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js")
+    navigator.serviceWorker
+        .register("sw.js")
         .then((reg) => {
             console.log("Service Worker registriert:", reg.scope);
         })
@@ -46,11 +47,11 @@ form.addEventListener("submit", async (event) => {
         const SECRET_PASSWORD = await getSecretPassword();
 
         if (input.value === SECRET_PASSWORD) {
-            message.textContent = "Korrekt! Du hast Level F geschafft. Weiter zum nächsten Level …";
+            message.textContent = "Korrekt! Du hast Level F geschafft.\nWeiter zum nächsten Level …";
             message.className = "success";
 
             setTimeout(() => {
-                window.location.href = NEXT_PAGE_URL;
+                window.location.href = NEXT_PAGE_URL; // -> /go -> Backend redirect
             }, 2000);
         } else {
             message.textContent =
@@ -59,7 +60,8 @@ form.addEventListener("submit", async (event) => {
         }
     } catch (err) {
         console.error(err);
-        message.textContent = "Interner Fehler beim Laden des Passworts. Sieh dir mal die Konsole an 😉";
+        message.textContent =
+            "Interner Fehler beim Laden des Passworts. Sieh dir mal die Konsole an ";
         message.className = "error";
     }
 
